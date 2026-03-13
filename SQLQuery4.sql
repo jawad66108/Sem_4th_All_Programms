@@ -1,0 +1,4 @@
+INSERT INTO std1 (Name, RollNo)VALUES
+('JAWAD',108),
+('MOHSIN',66),
+('HAMMAD',07);
