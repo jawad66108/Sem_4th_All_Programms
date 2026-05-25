@@ -1,0 +1,127 @@
+Forth-Interpreter/
+│
+├── main.asm           ← Coordinator (calls all modules)
+├── stack.asm          ← YOUR FILE - Core memory management
+├── operations.asm     ← Member 2 - Math & stack commands
+├── parser.asm         ← Member 3 - Tokenizer & control flow
+├── controlflow.asm    ← Member 3 - IF/ELSE/LOOPS
+├── display.asm        ← Member 4 - Visual stack renderer
+├── errors.asm         ← Member 4 - Error messages
+├── Makefile           ← Compilation script
+└── README.md          ← Project documentation
+
+
+
+┌─────────────────────────────────────────────────────┐
+│                      MAIN.ASM                        │
+│  (Initialization, Main Loop, Module Coordination)   │
+└─────────────────────────────────────────────────────┘
+                          │
+        ┌─────────────────┼─────────────────┐
+        ▼                 ▼                 ▼
+┌──────────────┐  ┌──────────────┐  ┌──────────────┐
+│   STACK.ASM  │  │ PARSER.ASM   │  │   GUI.ASM    │
+│ (Member 1)   │  │ (Member 3)   │  │ (Member 4)   │
+└──────────────┘  └──────────────┘  └──────────────┘
+        │                 │                 │
+        └────────────┬────┘                 │
+                     ▼                      ▼
+              ┌──────────────┐       ┌──────────────┐
+              │OPERATIONS.ASM│       │ DISPLAY.ASM  │
+              │ (Member 2)   │       │ (Member 4)   │
+              └──────────────┘       └──────────────┘
+
+
+
+
+
+
+
+
+[ User Input: "5 3 + ." ] 
+          │
+          ▼
+┌────────────────────────────────────────┐
+│        Member 3: Parser (parser.asm)    │ ──> Splits input into tokens: "5", "3", "+", "."
+└────────────────────────────────────────┘
+          │
+          │ Passes tokens one by one
+          ▼
+┌────────────────────────────────────────┐
+│ Member 2: Execution Engine (ops.asm)   │
+└────────────────────────────────────────┘
+    │                          │
+    │ Calls Stack APIs         │ Evaluates if math or command
+    ▼                          ▼
+┌────────────────────────────────────────┐     ┌────────────────────────────────────────┐
+│ Member 1: Stack & Memory (stack.asm)   │ <─> │ Member 4: GUI & Display (gui.asm)      │
+│ (Your Job: PUSH/POP/Check Bounds)     │     │ (Reads Stack memory array to draw UI)  │
+└────────────────────────────────────────┘     └────────────────────────────────────────┘              
+
+
+
+
+# Forth Interpreter with Stack Visualization
+
+A complete Forth language interpreter written in x86-64 assembly language with real-time stack visualization.
+
+## Features
+
+### Core Features
+- Complete stack-based virtual machine
+- Arithmetic operations (+, -, *, /, %)
+- Stack manipulation (dup, drop, swap, over, rot)
+- Output operations (., emit, cr, space)
+- Input parsing and tokenization
+- Professional terminal-based GUI with colors
+
+### Bonus Features
+- Real-time stack visualization
+- Error handling with colored messages
+- Stack bounds checking
+- Command history (via terminal)
+- Help system
+- Clean, professional interface
+
+## Commands
+
+### Arithmetic
+- `+` - Addition (a b -- a+b)
+- `-` - Subtraction (a b -- a-b)
+- `*` - Multiplication (a b -- a*b)
+- `/` - Division (a b -- a/b)
+- `%` - Modulus (a b -- a%b)
+
+### Stack Manipulation
+- `dup` - Duplicate top of stack
+- `drop` - Remove top of stack
+- `swap` - Swap top two items
+- `over` - Copy second item to top
+- `rot` - Rotate third item to top
+- `clear` - Clear entire stack
+- `.s` - Print entire stack
+
+### Output
+- `.` - Print top number
+- `emit` - Print character (ASCII)
+- `cr` - New line
+- `space` - Print space
+
+### Control Flow (Basic)
+- `if` - Conditional execution
+- `else` - Alternative branch
+- `then` - End conditional
+- `begin` - Start loop
+- `until` - Loop until condition
+
+### System
+- `help` - Show help
+- `bye` - Exit interpreter
+
+## Building and Running
+
+### Prerequisites
+- NASM (Netwide Assembler)
+- LD (GNU Linker)
+- Linux Mint (or any Linux distribution)
+
